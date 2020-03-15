@@ -12,8 +12,13 @@ plot(P)
 for n = 1 : num
    seed = S(:, n)';
    v = V.Set(n).V;
-   new_v = displace(seed, v, 0.01);
-   new_Poly(n) = Polyhedron(new_v);
+   on_border(v)
+   if ~on_border(v)
+      new_Poly(n) = Polyhedron(v);
+   else
+      new_v = displace(seed, v, 0.05);
+      new_Poly(n) = Polyhedron(new_v);
+   end
 end
 hold on;
 plot(S(1,:), S(2,:), "*", "MarkerSize", 5)

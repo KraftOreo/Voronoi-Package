@@ -1,9 +1,10 @@
 function [V] = displace(center, vertices, erosion_constant)
-    [r, c] = size(vertices);
+    [r, ~] = size(vertices);
     A = ones(r, 2);
     B = ones(r, 1);
     V = ones(r, 2);
-
+    figure 
+    hold on;
     for i = 1 : r
         next = mod(i, r) + 1;
         delta_dist = erosion_constant * rand();
@@ -37,4 +38,5 @@ function [V] = displace(center, vertices, erosion_constant)
         bs = [B(i, :); B(next, :)];
         V(i, :) = linsolve(equations, bs)';
     end
+    plot(Polyhedron(V))
 end
